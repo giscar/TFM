@@ -7,30 +7,30 @@ import time
 from itertools import permutations
 from geopy.distance import geodesic
 import requests
+import os
 
 # =========================
-# CONFIG MAPBOX
+# CONFIG
 # =========================
 
 MAPBOX_TOKEN = "pk.eyJ1IjoiZ2lzY2FyIiwiYSI6ImNtbzMzbnprNTA1cjYzeG83enZ0a2J2ajUifQ.Kjk9Vz7ypnaMvDQwSHG2DQ"
 
+# =========================
+# GEOCODING
+# =========================
+
 def geocode(address):
     url = f"https://api.mapbox.com/geocoding/v5/mapbox.places/{address}.json"
-    params = {
-        "access_token": MAPBOX_TOKEN,
-        "limit": 1
-    }
+    params = {"access_token": MAPBOX_TOKEN, "limit": 1}
 
     response = requests.get(url, params=params)
     data = response.json()
 
-    # Manejo seguro de errores
     if "features" not in data or len(data["features"]) == 0:
         print(f"⚠️ Error con dirección: {address}")
         raise ValueError("No se pudo geocodificar")
 
-    coords = data["features"][0]["geometry"]["coordinates"]
-    return coords  # [lon, lat]
+    return data["features"][0]["geometry"]["coordinates"]
 
 # =========================
 # DIRECCIONES
@@ -44,11 +44,16 @@ addresses = [
     "Callao Peru",
     "La Molina Lima",
     "Barranco Lima",
-    "San Borja Lima"
+    "San Borja Lima",
+    "Los Olivos Lima",
+    "Comas Lima"
 ]
 
-print("Obteniendo coordenadas...")
+print("🌍 Obteniendo coordenadas...")
 points = np.array([geocode(addr) for addr in addresses])
+
+# 🔥 AHORA SÍ ES CORRECTO
+MODEL_PATH = f"modelo_rl_{len(points)}"
 
 # =========================
 # DISTANCIA REAL
@@ -64,7 +69,7 @@ def total_distance_real(route, points):
     )
 
 # =========================
-# ENTORNO RL MEJORADO
+# ENTORNO RL
 # =========================
 
 class TSPEnv(gym.Env):
@@ -153,20 +158,38 @@ def plot_route(points, route, title):
     plt.show()
 
 # =========================
-# EJECUCIÓN
+# EJECUCIÓN TSP
 # =========================
 
-# TSP
 start = time.time()
 tsp_route, tsp_distance = tsp_bruteforce(points)
 tsp_time = time.time() - start
 
-# RL
+# =========================
+# RL PERSISTENTE
+# =========================
+
 env = TSPEnv(points)
 
-model = PPO("MlpPolicy", env, verbose=0)
-print("Entrenando RL...")
-model.learn(total_timesteps=50000)
+if os.path.exists(MODEL_PATH + ".zip"):
+    print("🔁 Cargando modelo existente...")
+    model = PPO.load(MODEL_PATH, env=env)
+
+    print("📈 Refinando modelo...")
+    model.learn(total_timesteps=20000)
+
+else:
+    print("🧠 Entrenando modelo desde cero...")
+    model = PPO("MlpPolicy", env, verbose=0)
+    model.learn(total_timesteps=50000)
+
+# 💾 GUARDAR SIEMPRE
+model.save(MODEL_PATH)
+print("💾 Modelo guardado")
+
+# =========================
+# EJECUTAR RL
+# =========================
 
 start = time.time()
 
@@ -177,6 +200,7 @@ done = False
 while not done:
     action, _ = model.predict(obs)
     obs, reward, done, truncated, _ = env.step(action)
+
     if action not in route:
         route.append(action)
 
