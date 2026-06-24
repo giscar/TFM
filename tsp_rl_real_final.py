@@ -5,6 +5,7 @@ from stable_baselines3 import PPO
 import requests
 import matplotlib.pyplot as plt
 import time
+import os
 from itertools import permutations
 from geopy.distance import geodesic
 
@@ -12,7 +13,7 @@ from geopy.distance import geodesic
 # CONFIG MAPBOX
 # =========================
 
-MAPBOX_TOKEN = "pk.eyJ1IjoiZ2lzY2FyIiwiYSI6ImNtbzMzbnprNTA1cjYzeG83enZ0a2J2ajUifQ.Kjk9Vz7ypnaMvDQwSHG2DQ"
+MAPBOX_TOKEN = os.getenv("MAPBOX_TOKEN", "").strip()
 
 def geocode(address):
     url = f"https://api.mapbox.com/geocoding/v5/mapbox.places/{address}.json"

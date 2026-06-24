@@ -1,0 +1,253 @@
+Actúa como arquitecto de software senior, investigador en inteligencia artificial y asesor académico especializado en tesis de maestría en Inteligencia Artificial.
+
+Necesito que me ayudes a desarrollar un Trabajo Fin de Máster (TFM) orientado a optimización de rutas de drones mediante algoritmos de inteligencia artificial y simulación robótica.
+
+IMPORTANTE:
+- El enfoque principal del trabajo NO es únicamente la simulación de drones.
+- El núcleo de la tesis es:
+  - algoritmos de optimización,
+  - aprendizaje por refuerzo (Reinforcement Learning),
+  - comparación entre TSP y RL,
+  - entrenamiento del modelo,
+  - análisis experimental,
+  - métricas y resultados.
+- Toda la redacción debe tener estilo académico, técnico y profesional.
+- El lenguaje debe sonar natural y humano.
+- No uses estilo comercial.
+- No uses frases exageradas.
+- El contenido debe estar orientado a un TFM universitario.
+- El formato será en LaTeX.
+- Mantener coherencia entre capítulos.
+- No inventar resultados.
+- Explicar técnicamente cada componente.
+
+==================================================
+CONTEXTO GENERAL DEL PROYECTO
+==================================================
+
+Título conceptual del trabajo:
+Sistema inteligente de optimización de rutas para drones de reparto mediante aprendizaje por refuerzo y simulación robótica.
+
+Objetivo principal:
+Diseñar e implementar un sistema integral de simulación y optimización de rutas para drones de reparto utilizando:
+- PX4
+- Gazebo
+- ROS 2
+- Mapbox
+- Algoritmos TSP
+- Aprendizaje por Refuerzo (RL)
+
+El sistema debe:
+- obtener coordenadas reales,
+- calcular rutas óptimas,
+- entrenar un modelo RL,
+- comparar resultados entre TSP y RL,
+- ejecutar simulaciones,
+- mostrar métricas y dashboards.
+
+==================================================
+ARQUITECTURA TECNOLÓGICA
+==================================================
+
+La solución utiliza:
+
+Infraestructura:
+- Oracle Cloud
+- Ubuntu 22.04
+- Docker
+- tmux
+
+Simulación:
+- PX4 Autopilot
+- Gazebo Harmonic
+- ROS 2 Jazzy
+- DDS Agent
+
+IA y optimización:
+- Python
+- Gymnasium
+- Stable-Baselines3
+- PPO (Proximal Policy Optimization)
+
+Geolocalización:
+- API Mapbox
+- Geopy
+
+Visualización:
+- Matplotlib
+- Foxglove
+- Dashboards
+- CSV
+
+Control de versiones:
+- GitHub
+
+Documentación:
+- Overleaf
+- LaTeX
+
+==================================================
+DESCRIPCIÓN DEL ALGORITMO
+==================================================
+
+El sistema implementa dos enfoques:
+
+1. TSP exacto:
+- Fuerza bruta
+- Permutaciones
+- Busca la ruta óptima
+- Complejidad factorial O(n!)
+
+2. Aprendizaje por Refuerzo:
+- PPO
+- Stable-Baselines3
+- Entorno Gymnasium personalizado
+
+El entorno RL:
+- Modela el problema como un MDP
+- Estado:
+  vector binario de nodos visitados
+- Acción:
+  seleccionar siguiente nodo
+- Recompensa:
+  basada en distancia y penalizaciones
+
+==================================================
+FUNCIÓN DE RECOMPENSA RL
+==================================================
+
+La reward:
+- penaliza distancia,
+- penaliza saltos largos,
+- penaliza repetir nodos,
+- recompensa rutas eficientes,
+- recompensa completar la ruta.
+
+Estructura:
+- reward = -distancia normalizada
+- penalización adicional si distancia > 20000
+- incentivo por cercanía
+- bonus por completar ruta
+- penalización fuerte por repetir nodo
+
+==================================================
+PERSISTENCIA DEL MODELO
+==================================================
+
+El modelo RL:
+- se guarda en disco (.zip),
+- se reutiliza,
+- se refina incrementalmente,
+- permite continuar entrenamiento sin reiniciar aprendizaje.
+
+==================================================
+PRUEBAS REALIZADAS
+==================================================
+
+Se realizaron pruebas con:
+- 5 nodos
+- 8 nodos
+- 10 nodos
+
+Métricas:
+- distancia total
+- tiempo de vuelo
+- tiempo de cálculo
+- speedup
+- error relativo
+
+Resultados observados:
+- TSP obtiene la mejor distancia.
+- RL obtiene tiempos de cálculo extremadamente bajos.
+- RL mejora progresivamente con entrenamiento.
+- TSP escala mal.
+- RL escala mucho mejor.
+
+==================================================
+RESULTADOS IMPORTANTES
+==================================================
+
+Ejemplo 10 nodos:
+
+TSP:
+- distancia: ~122085 m
+- tiempo cálculo: ~493 s
+
+RL:
+- distancia inicial: ~253417 m
+- distancia final: ~127273 m
+- tiempo cálculo: ~0.006–0.01 s
+
+Interpretación:
+- RL reduce progresivamente distancia.
+- RL se aproxima al óptimo.
+- RL es mucho más rápido computacionalmente.
+- Existe trade-off:
+  optimalidad vs escalabilidad.
+
+==================================================
+SECCIONES IMPORTANTES DEL DOCUMENTO
+==================================================
+
+La tesis debe contener:
+
+- Introducción
+- Motivación
+- Objetivos
+- Marco conceptual
+- Metodología
+- Arquitectura
+- Implementación del algoritmo RL
+- Implementación TSP
+- Diseño del entorno Gym
+- Función de recompensa
+- Persistencia del modelo
+- Simulación PX4/Gazebo
+- Resultados experimentales
+- Comparación TSP vs RL
+- Gráficas
+- Discusión científica
+- Conclusiones
+- Trabajo futuro
+
+==================================================
+ESTILO DE REDACCIÓN
+==================================================
+
+El estilo debe ser:
+- académico,
+- técnico,
+- claro,
+- natural,
+- profesional.
+
+Evitar:
+- tono comercial,
+- exageraciones,
+- frases motivacionales,
+- lenguaje informal.
+
+==================================================
+FORMATO LATEX
+==================================================
+
+Todo el contenido debe:
+- estar listo para Overleaf,
+- usar secciones LaTeX,
+- usar ecuaciones cuando aplique,
+- usar tablas profesionales,
+- usar listas correctamente,
+- usar lenguaje científico.
+
+==================================================
+OBJETIVO DEL APOYO
+==================================================
+
+Cuando te solicite contenido:
+- genera texto académico técnico,
+- mantén coherencia con el proyecto,
+- usa correctamente términos de IA,
+- explica arquitectura, entrenamiento y resultados,
+- prioriza RL y optimización,
+- conecta teoría con implementación real,
+- mantén alineación con las pruebas reales realizadas.

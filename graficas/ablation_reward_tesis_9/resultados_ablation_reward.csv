@@ -1,0 +1,4 @@
+reward_mode,seed,timesteps,nodes,route,distance_m,flight_time_s,inference_time_s,model_prep_time_s,error_relative_pct,repeated_actions,model_path
+distance_only,42,20000,9,0-6-8-1-2-5-7-3-4,93290.563864,9329.056386,0.003273,18.314629,79.892638,0,modelos_ablation_reward/ablation_rl_9_distance_only_seed42_ts20000.zip
+distance_penalty,42,20000,9,0-6-3-1-8-5-7-2-4,79890.353513,7989.035351,0.003489,17.492474,54.052949,0,modelos_ablation_reward/ablation_rl_9_distance_penalty_seed42_ts20000.zip
+full,42,20000,9,0-1-5-7-8-6-2-3-4,96048.391218,9604.839122,0.002716,17.540117,85.210570,0,modelos_ablation_reward/ablation_rl_9_full_seed42_ts20000.zip

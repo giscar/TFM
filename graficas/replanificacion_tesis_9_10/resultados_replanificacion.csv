@@ -1,0 +1,13 @@
+scenario,event,algorithm,nodes,route,distance_m,flight_time_s,calc_time_s,model_prep_time_s,error_relative_pct,speedup_vs_tsp
+dynamic_replanning,baseline,TSP,9,0-8-4-2-1-6-3-7-5,51859.0225,5185.9023,0.138265,0.000000,0.0000,1.0000
+dynamic_replanning,baseline,Greedy+2opt,9,0-5-7-3-6-1-2-4-8,53417.0747,5341.7075,0.000149,0.000000,3.0044,929.2124
+dynamic_replanning,baseline,RL,9,0-2-1-8-4-7-3-6-5,71593.9840,7159.3984,0.004479,44.165301,38.0550,30.8699
+dynamic_replanning,add,TSP,10,0-8-4-2-1-6-9-3-7-5,55767.1347,5576.7135,1.210096,0.000000,0.0000,1.0000
+dynamic_replanning,add,Greedy+2opt,10,0-5-7-3-9-6-1-2-4-8,57325.1869,5732.5187,0.000183,0.000000,2.7939,6613.2721
+dynamic_replanning,add,RL,10,0-2-9-4-8-7-1-5-3-6,86798.4001,8679.8400,0.003182,44.251725,55.6444,380.2676
+dynamic_replanning,cancel,TSP,8,0-7-3-2-1-5-6-4,49571.2481,4957.1248,0.014887,0.000000,0.0000,1.0000
+dynamic_replanning,cancel,Greedy+2opt,8,0-4-6-5-1-2-3-7,51129.3003,5112.9300,0.000099,0.000000,3.1431,151.0260
+dynamic_replanning,cancel,RL,8,0-5-3-1-6-7-2-4,87795.4812,8779.5481,0.003057,43.984610,77.1097,4.8694
+dynamic_replanning,priority,TSP,9,0-4-8-2-1-6-3-7-5,55405.2252,5540.5225,0.017410,0.000000,0.0000,1.0000
+dynamic_replanning,priority,Greedy+2opt,9,0-4-2-1-6-3-7-5-8,58717.9591,5871.7959,0.000085,0.000000,5.9791,203.7641
+dynamic_replanning,priority,RL,9,0-4-2-8-1-7-3-6-5,75698.1043,7569.8104,0.003091,0.012093,36.6263,5.6318
