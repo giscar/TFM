@@ -1,0 +1,31 @@
+Fecha,2026-03-25 22:11:28
+
+Métrica,Ruta secuencial,Ruta optimizada,Mejora (%)
+Distancia total (m),23097.57,23897.51,-3.46
+Tiempo estimado (s),4619.51,4779.50,-3.46
+Consumo batería (%),2.31,2.39,-3.46
+Eficiencia (m/s),5.00,5.00,0.00
+
+Orden óptimo (IDs)
+1,"Valletta, Malta"
+2,"Sliema, Malta"
+4,"Gzira, Malta"
+3,"Msida, Malta"
+5,"San Gwann, Malta"
+6,"St Julians, Malta"
+7,"Swieqi, Malta"
+8,"Naxxar, Malta"
+10,"Birkirkara, Malta"
+9,"Attard, Malta"
+
+"Waypoints locales (x,y) - Orden original"
+1,-570.9697092775831,-111.41731649773001,"Valletta, Malta"
+2,-1614.9102252153675,1418.958458912001,"Sliema, Malta"
+3,-2775.7648731364056,-478.805354131164,"Msida, Malta"
+4,-2150.4814338232295,865.0965292953545,"Gzira, Malta"
+5,-3710.6275663992865,1034.6687924282535,"San Gwann, Malta"
+6,-2908.2615512160733,2215.3365235395027,"St Julians, Malta"
+7,-4544.338818816759,2627.091336904126,"Swieqi, Malta"
+8,-6909.913432282912,1483.3403214384232,"Naxxar, Malta"
+9,-6934.77344802026,-1009.983518712459,"Attard, Malta"
+10,-4958.041906797898,-60.267650241281444,"Birkirkara, Malta"

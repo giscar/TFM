@@ -1,0 +1,6 @@
+Misión,Puntos,Distancia secuencial (m),Distancia optimizada (m),Mejora (%),Tiempo secuencial (s),Tiempo optimizado (s),Consumo batería secuencial (%),Consumo batería optimizado (%)
+Malta 8,8,27552.22,19690.15,28.54,5510.44,3938.03,2.76,1.97
+Malta 12,12,19776270.56,19766248.62,0.05,3955254.11,3953249.72,1977.63,1976.62
+Villavicencio 7,7,126474.72,126474.72,0.00,25294.94,25294.94,12.65,12.65
+Bogotá 8,8,165990.33,164140.39,1.11,33198.07,32828.08,16.60,16.41
+Bogotá 12,12,58950042.11,37958149.74,35.61,11790008.42,7591629.95,5895.00,3795.81

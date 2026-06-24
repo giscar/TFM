@@ -1,0 +1,17 @@
+Fecha,2026-04-01 21:55:11
+Archivo de órdenes,/ros2_ws/src/mission/orders_7_Villavicencio.json
+"Referencia (lat,lon)","4.161400, -73.238900"
+
+Métrica,Ruta secuencial,Ruta optimizada,Mejora (%)
+Distancia total (m),131887.31,131887.31,0.00
+Tiempo estimado (s),26377.46,26377.46,0.00
+Consumo batería (%),13.19,13.19,0.00
+Eficiencia (m/s),5.00,5.00,0.00
+
+Orden óptimo (IDs)
+1,"Calle 10B No. 31A - 27 B. Panorama, Acacias, Meta, Colombia"
+5,"Calle 45 38 74, Villavicencio, Meta, Colombia"
+
+"Waypoints locales (x,y) - Orden original"
+1,-59380.25,-19656.48,"Calle 10B No. 31A - 27 B. Panorama, Acacias, Meta, Colombia"
+5,-45287.63,-167.68,"Calle 45 38 74, Villavicencio, Meta, Colombia"

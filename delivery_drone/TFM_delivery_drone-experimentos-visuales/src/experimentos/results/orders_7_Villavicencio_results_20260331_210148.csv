@@ -1,0 +1,17 @@
+Fecha,2026-03-31 21:01:48
+Archivo de órdenes,/ros2_ws/src/mission/orders_7_Villavicencio.json
+"Referencia (lat,lon)","4.161400, -73.238900"
+
+Métrica,Ruta secuencial,Ruta optimizada,Mejora (%)
+Distancia total (m),126474.72,126474.72,0.00
+Tiempo estimado (s),25294.94,25294.94,0.00
+Consumo batería (%),12.65,12.65,0.00
+Eficiencia (m/s),5.00,5.00,0.00
+
+Orden óptimo (IDs)
+1,"Calle 10B No. 31A - 27 B. Panorama, Acacias"
+5,"Calle 45 38 74, Villavicencio"
+
+"Waypoints locales (x,y) - Orden original"
+1,-59380.25,-19656.48,"Calle 10B No. 31A - 27 B. Panorama, Acacias"
+5,-35588.05,-4887.24,"Calle 45 38 74, Villavicencio"

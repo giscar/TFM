@@ -1,0 +1,30 @@
+# Compilación
+build/
+install/
+log/
+*.pyc
+__pycache__/
+
+# PX4
+px4/PX4-Autopilot/build/
+px4/PX4-Autopilot/build_*/
+*.ulg
+*.log
+*.bin
+*.pid
+
+# Docker
+*.sock
+*.pid
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos temporales
+*.tmp
+*.temp
+*.cache

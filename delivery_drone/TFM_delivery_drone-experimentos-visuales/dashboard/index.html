@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Optimización de Rutas de Drones</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 20px;
+            color: #1a2c3e;
+        }
+        h1 {
+            text-align: center;
+            color: #0a4b6e;
+        }
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #0a4b6e;
+            color: white;
+        }
+        .chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+        .chart-box {
+            width: 45%;
+            min-width: 300px;
+            margin: 10px;
+        }
+        .chart-box-wide {
+            width: 100%;
+            margin: 10px;
+        }
+        canvas {
+            max-height: 300px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #888;
+        }
+        .badge {
+            background-color: #e0f0f5;
+            border-radius: 8px;
+            padding: 5px 10px;
+            font-size: 12px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🚁 Dashboard de Optimización de Rutas</h1>
+    <div style="text-align: center;">
+        <span class="badge">📊 Datos reales de simulación</span>
+        <span class="badge">🔁 Actualización automática cada 60s</span>
+        <span class="badge">📈 Unidades: km y horas</span>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-box">
+            <canvas id="distChart"></canvas>
+        </div>
+        <div class="chart-box">
+            <canvas id="timeChart"></canvas>
+        </div>
+        <div class="chart-box">
+            <canvas id="improvementChart"></canvas>
+        </div>
+        <div class="chart-box">
+            <canvas id="batteryChart"></canvas>
+        </div>
+    </div>
+
+    <h3>📋 Tabla comparativa (km / horas)</h3>
+    <div style="overflow-x: auto;">
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>Misión</th>
+                    <th>Puntos</th>
+                    <th>Dist. Secuencial (km)</th>
+                    <th>Dist. Optimizada (km)</th>
+                    <th>Mejora (%)</th>
+                    <th>Tiempo Secuencial (h)</th>
+                    <th>Tiempo Optimizado (h)</th>
+                    <th>Batería Sec. (%)</th>
+                    <th>Batería Opt. (%)</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <tr><td colspan="9">Cargando datos...</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <footer>
+        Datos obtenidos de misiones reales con PX4 y ROS 2. La mejora se calcula sobre distancia total. Unidades consistentes: kilómetros y horas.
+    </footer>
+</div>
+
+<script>
+    let distChart, timeChart, improvementChart, batteryChart;
+
+    function loadData() {
+        fetch('data/resumen_misiones.csv')
+            .then(response => response.text())
+            .then(csvText => {
+                const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+                const data = parsed.data;
+                renderTable(data);
+                updateCharts(data);
+            })
+            .catch(err => console.error('Error cargando CSV:', err));
+    }
+
+    function renderTable(data) {
+        const tbody = document.getElementById('table-body');
+        tbody.innerHTML = '';
+        data.forEach(row => {
+            const distSec = Number(row['Distancia secuencial (m)']) / 1000;
+            const distOpt = Number(row['Distancia optimizada (m)']) / 1000;
+            const timeSec = Number(row['Tiempo secuencial (s)']) / 3600;
+            const timeOpt = Number(row['Tiempo optimizado (s)']) / 3600;
+            const mejora = row['Mejora (%)'];
+            const bateriaSec = row['Consumo batería secuencial (%)'];
+            const bateriaOpt = row['Consumo batería optimizado (%)'];
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${row.Misión}</td>
+                <td>${row.Puntos}</td>
+                <td>${distSec.toFixed(1)}</td>
+                <td>${distOpt.toFixed(1)}</td>
+                <td style="color: ${mejora > 0 ? 'green' : 'red'}; font-weight:bold;">${mejora}%</td>
+                <td>${timeSec.toFixed(1)}</td>
+                <td>${timeOpt.toFixed(1)}</td>
+                <td>${bateriaSec}%</td>
+                <td>${bateriaOpt}%</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function updateCharts(data) {
+        const labels = data.map(row => row.Misión);
+        const distSec = data.map(row => Number(row['Distancia secuencial (m)']) / 1000);
+        const distOpt = data.map(row => Number(row['Distancia optimizada (m)']) / 1000);
+        const timeSec = data.map(row => Number(row['Tiempo secuencial (s)']) / 3600);
+        const timeOpt = data.map(row => Number(row['Tiempo optimizado (s)']) / 3600);
+        const mejora = data.map(row => Number(row['Mejora (%)']));
+        const bateriaSec = data.map(row => Number(row['Consumo batería secuencial (%)']));
+        const bateriaOpt = data.map(row => Number(row['Consumo batería optimizado (%)']));
+
+        // Distancia
+        if (distChart) distChart.destroy();
+        distChart = new Chart(document.getElementById('distChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    { label: 'Distancia secuencial (km)', data: distSec, backgroundColor: '#f39c12' },
+                    { label: 'Distancia optimizada (km)', data: distOpt, backgroundColor: '#2ecc71' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: true, plugins: { title: { display: true, text: 'Comparación de distancia (km)' } } }
+        });
+
+        // Tiempo
+        if (timeChart) timeChart.destroy();
+        timeChart = new Chart(document.getElementById('timeChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    { label: 'Tiempo secuencial (h)', data: timeSec, backgroundColor: '#f39c12' },
+                    { label: 'Tiempo optimizado (h)', data: timeOpt, backgroundColor: '#2ecc71' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: true, plugins: { title: { display: true, text: 'Comparación de tiempo (horas)' } } }
+        });
+
+        // Mejora porcentual
+        if (improvementChart) improvementChart.destroy();
+        improvementChart = new Chart(document.getElementById('improvementChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    { label: 'Mejora (%)', data: mejora, backgroundColor: '#3498db' }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: { title: { display: true, text: 'Mejora porcentual por misión' } },
+                scales: { y: { beginAtZero: true, title: { display: true, text: 'Mejora (%)' } } }
+            }
+        });
+
+        // Consumo de batería
+        if (batteryChart) batteryChart.destroy();
+        batteryChart = new Chart(document.getElementById('batteryChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    { label: 'Batería secuencial (%)', data: bateriaSec, backgroundColor: '#f39c12' },
+                    { label: 'Batería optimizada (%)', data: bateriaOpt, backgroundColor: '#2ecc71' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: true, plugins: { title: { display: true, text: 'Consumo de batería (%)' } } }
+        });
+    }
+
+    loadData();
+    setInterval(loadData, 60000);
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+Fecha,2026-04-08 20:34:37
+Archivo de órdenes,/ros2_ws/src/mission/orders_8_Malta.json
+"Referencia (lat,lon)","35.900000, 14.520000"
+
+Métrica,Ruta secuencial,Ruta optimizada,Mejora (%)
+Distancia total (m),27552.22,19690.15,28.54
+Tiempo estimado (s),5510.44,3938.03,28.54
+Consumo batería (%),2.76,1.97,28.54
+Eficiencia (m/s),5.00,5.00,0.00
+
+Orden óptimo (IDs)
+1,"Sliema, Malta"
+8,"Gzira, Malta"
+2,"St Julians, Malta"
+7,"Swieqi, Malta"
+3,"Naxxar, Malta"
+6,"Attard, Malta"
+5,"San Gwann, Malta"
+4,"Msida, Malta"
+
+"Waypoints locales (x,y) - Orden original"
+1,-1614.91,1418.96,"Sliema, Malta"
+2,-2908.26,2215.34,"St Julians, Malta"
+3,-6909.91,1483.34,"Naxxar, Malta"
+4,-2775.76,-478.81,"Msida, Malta"
+5,-3710.63,1034.67,"San Gwann, Malta"
+6,-6934.77,-1009.98,"Attard, Malta"
+7,-4544.34,2627.09,"Swieqi, Malta"
+8,-2150.48,865.10,"Gzira, Malta"
